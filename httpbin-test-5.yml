@@ -1,4 +1,4 @@
-#This test uses ensure
+#This test uses payload from csv file
 config:
   target: "http://httpbin.org/"
   phases:
@@ -15,16 +15,12 @@ scenarios:
   - name: Getting a resource
     flow:
       - get:
-          url: "{{ target }}get"
+          url: "{{ target }}get?param1={{ keyword1 }}"
       - post:
-          url: "{{ target }}post"
+          url: "{{ target }}post?param2={{ keyword2 }}"
           json:
             username: "Test User"
             password: "Temp Password"
           capture:
-            - json: "$.json"
-              as: "request_body"
-            - json: "$.headers.Host"
-              as: "host"
-      #- log: "Json value from response is: {{request_body}}"
-      #- log: "Host value from response is: {{host}}"
+            - json: "$.origin"
+              as: "origin"
