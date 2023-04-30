@@ -5,7 +5,7 @@ config:
   phases:
     - duration: 7
       arrivalRate: 2
-      name: Artillery Second Test
+      name: Artillery longer duration and higher arrival rate GET and POST Test
 scenarios:
   - name: Getting a resource
     flow:

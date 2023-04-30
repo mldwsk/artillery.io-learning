@@ -1,9 +1,16 @@
+#This test uses ensure
 config:
   target: "http://httpbin.org/"
   phases:
     - duration: 1
       arrivalRate: 1
-      name: Artillery simple GET and POST Test
+      name: Artillery Payload Test from CSV file
+  payload:
+    - path: "keywords.csv"
+      fields:
+        - "keyword1"
+        - "keyword2"
+      order: sequence
 scenarios:
   - name: Getting a resource
     flow:
@@ -19,5 +26,5 @@ scenarios:
               as: "request_body"
             - json: "$.headers.Host"
               as: "host"
-      - log: "Json value from response is: {{request_body}}"
-      - log: "Host value from response is: {{host}}"
+      #- log: "Json value from response is: {{request_body}}"
+      #- log: "Host value from response is: {{host}}"

@@ -1,9 +1,19 @@
+#This test uses ensure
 config:
   target: "http://httpbin.org/"
   phases:
     - duration: 1
       arrivalRate: 1
-      name: Artillery simple GET and POST Test
+      name: Artillery Ensure Test (checks response time p95, response time max, failed vusers, request rate)
+  plugins:
+    ensure: {}
+  ensure:
+    thresholds:
+      - http.response_time.p95: 1000
+    conditions:
+      - expression: vusers.failed == 0
+      - expression: "http.request_rate >= 2 and http.response_time.max < 5000"
+
 scenarios:
   - name: Getting a resource
     flow:
@@ -19,5 +29,5 @@ scenarios:
               as: "request_body"
             - json: "$.headers.Host"
               as: "host"
-      - log: "Json value from response is: {{request_body}}"
-      - log: "Host value from response is: {{host}}"
+      #- log: "Json value from response is: {{request_body}}"
+      #- log: "Host value from response is: {{host}}"

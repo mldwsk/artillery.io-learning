@@ -5,7 +5,7 @@ config:
   phases:
     - duration: 1
       arrivalRate: 1
-      name: Artillery Third Test
+      name: Artillery Additional Variable Test
 scenarios:
   - name: Getting a resource
     flow:
@@ -21,5 +21,8 @@ scenarios:
               as: "request_body"
             - json: "$.headers.Host"
               as: "host"
-      - log: "Json value from response is: {{request_body}}"
-      - log: "Host value from response is: {{host}}"
+            - json: "$.origin"
+              as: "origin"
+      #- log: "Json value from response is: {{request_body}}"
+      #- log: "Host value from response is: {{host}}"
+      - log: "Origin value from response is: {{origin}}"
